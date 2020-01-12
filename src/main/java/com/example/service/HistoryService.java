@@ -15,23 +15,10 @@ public class HistoryService {
     @Autowired
     private HistoryRepo repo;
 
-//    @Autowired
-//    private HttpClientExample httpClientExample;
-
     public void addHistory(City city, User user){
         History history = new History();
         history.setUser(user);
         history.setCity(city);
         repo.save(history);
     }
-
-//    public Date date(){
-//        Date dt = new Date();
-//        Calendar c = Calendar.getInstance();
-//        c.setTime(dt);
-//        c.add(Calendar.HOUR, 1);
-//        return c.getTime();
-//    }
-
-
 }

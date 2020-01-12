@@ -33,19 +33,19 @@ public class Scheduler {
 //    }
 
 
-    @Scheduled(cron = "0 */10 * * * *") // Формат:  секунда, минута, час, день, месяц, день недели
+    @Scheduled(cron = "0 0 */6 * * *") // Формат:  секунда, минута, час, день, месяц, день недели
     public void createWeather() throws Exception {
-//        Iterable<City> list = cityRepo.findAll();
-//        for (City city: list) {
-//            Weather weather = new Weather();
-//            weather.setDate(new Date());
-//            weather.setCity(city);
-//            weather.setTemp(client.sendGet(city.getLat(), city.getLon()));
-//            weatherRepo.save(weather);
-//
-//            System.out.println("Scheduler save: " + weather.getCity().getName());
-////            Thread.sleep(1000);
-//        }
-        System.out.println("Scheduler work: " + new Date());
+        Iterable<City> list = cityRepo.findAll();
+        for (City city: list) {
+            Weather weather = new Weather();
+            weather.setDate(new Date());
+            weather.setCity(city);
+            weather.setTemp(client.sendGet(city.getLat(), city.getLon()));
+            weatherRepo.save(weather);
+
+            System.out.println("Scheduler save: " + weather.getCity().getName());
+            Thread.sleep(1000);
+        }
+//        System.out.println("Scheduler work: " + new Date());
     }
 }

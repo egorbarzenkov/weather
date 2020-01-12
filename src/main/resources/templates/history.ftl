@@ -7,7 +7,7 @@
     <#list histories as history>
         <div class="card my-3">
             <div class="m-2">
-                <span>${history.city}</span>
+                <span>${history.city.name}</span>
             </div>
         </div>
     <#else>

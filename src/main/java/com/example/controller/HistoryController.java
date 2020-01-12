@@ -9,21 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.Map;
-
 @Controller
 public class HistoryController {
 
     @Autowired
     private HistoryRepo historyRepo;
 
-
     @GetMapping("/history")
-    public String greeting(Map<String, Object> model) {
-        return "history";
-    }
-
-    @GetMapping("/main")
     public String main(@AuthenticationPrincipal User user, Model model) {
         Iterable<History> histories = historyRepo.findDistinctByUser(user);
         model.addAttribute("histories", histories);
