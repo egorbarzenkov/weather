@@ -1,9 +1,13 @@
 package com.example.controller;
 
 
+import com.example.domain.City;
+import com.example.domain.History;
 import com.example.domain.User;
 import com.example.domain.Weather;
+import com.example.repos.CityRepo;
 import com.example.repos.WeatherRepo;
+import com.example.service.HistoryService;
 import com.example.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -24,43 +28,33 @@ public class MainController {
 
     @Autowired
     private WeatherService weatherService;
+
+    @Autowired
+    private CityRepo cityRepo;
+
+    @Autowired
+    private HistoryService historyService;
+
     @GetMapping("/")
     public String greeting(Map<String, Object> model) {
         return "greeting";
     }
 
     @GetMapping("/main")
-    public String main(Model model) {
-        Weather weather = weatherService.getWeather();
-
-//        Iterable<Message> messages = messageRepo.findAll();
-//
-//        if (filter != null && !filter.isEmpty()) {
-//            messages = messageRepo.findByTag(filter);
-//        } else {
-//            messages = messageRepo.findAll();
-//        }
-//
-//        model.addAttribute("messages", messages);
-//        model.addAttribute("filter", filter);
-
+    public String main(@AuthenticationPrincipal User user,
+            @RequestParam(required = false, defaultValue = "") String filter, Model model) {
+        City city;
+        if (filter != null && !filter.isEmpty()) {
+            city = cityRepo.findCityByName(filter);
+        } else {
+            city =  null;
+        }
+        if (user!=null){
+            historyService.addHistory(city, user);
+        }
+        Weather weather = weatherService.getWeather(city);
+        model.addAttribute("city", city);
         model.addAttribute("weather", weather);
-        return "main";
-    }
-
-    @PostMapping("/main")
-    public String add(
-            @AuthenticationPrincipal User user, Map<String, Object> model
-    ) throws IOException {
-//        Message message = new Message(text, tag, user);
-
-
-//        messageRepo.save(message);
-
-//        Iterable<Message> messages = messageRepo.findAll();
-
-//        model.put("messages", messages);
-
         return "main";
     }
 }

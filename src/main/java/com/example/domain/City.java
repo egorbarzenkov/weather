@@ -14,6 +14,8 @@ public class City {
     private String lat;
     private String lon;
 
+    public City() {}
+
     public Long getId() {
         return id;
     }

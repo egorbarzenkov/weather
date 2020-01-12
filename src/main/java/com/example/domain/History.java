@@ -1,11 +1,10 @@
 package com.example.domain;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
-@Table(name = "weather")
-public class Weather {
+@Table(name = "history")
+public class History {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,16 +13,17 @@ public class Weather {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn
     private City city;
-    private Double temp;
-    private Date date;
 
-    public Weather() {
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn
+    private User user;
+
+    public History() {
     }
 
-    public Weather(City city, Double temp, Date date) {
+    public History(City city, User user) {
         this.city = city;
-        this.temp = temp;
-        this.date = date;
+        this.user = user;
     }
 
     public Long getId() {
@@ -42,19 +42,11 @@ public class Weather {
         this.city = city;
     }
 
-    public Double getTemp() {
-        return temp;
+    public User getUser() {
+        return user;
     }
 
-    public void setTemp(Double temp) {
-        this.temp = temp;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

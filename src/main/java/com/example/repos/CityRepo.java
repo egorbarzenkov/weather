@@ -5,5 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface CityRepo extends CrudRepository<City, Long> {
 
-    City findByName(String name);
+    City findCityByName(String name);
+    City findCityById(Long id);
 }
