@@ -64,4 +64,39 @@ public class HttpClientExample {
 
         return temp-273;
     }
+//Todo запилить по названию города и без лишних преобразований
+    public Double sendGetMetric(String name) throws Exception {
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        String url = "https://api.openweathermap.org/data/2.5/find?q=";
+        String two = "&units=metric&APPID=0bc9fcacaff672d115bfd1a4d591b3b4";
+//        HttpGet request = new HttpGet("https://api.weather.yandex.ru/v1/forecast?lat=56.8519&lon=60.6122&hours=false&extra=false");
+        HttpGet request = new HttpGet(url+name+two);
+
+        System.out.println(url+name+two);
+
+        try (CloseableHttpResponse response = httpClient.execute(request)) {
+
+            // Get HttpResponse Status
+//            System.out.println(response.getStatusLine().toString());
+
+            HttpEntity entity = response.getEntity();
+//            Header headers = entity.getContentType();
+//            System.out.println(headers);
+
+            if (entity != null) {
+                // return it as a String
+
+                String result = EntityUtils.toString(entity);
+                Object obj = new JSONParser().parse(result);
+                JSONObject jo = (JSONObject) obj;
+                JSONObject object = (JSONObject) jo.get("main");
+                Double temp = (Double) object.get("temp");
+                return temp;
+            }
+        }
+        finally {
+            httpClient.close();
+        }
+        return null;
+    }
 }

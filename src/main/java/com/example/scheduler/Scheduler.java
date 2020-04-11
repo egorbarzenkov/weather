@@ -19,33 +19,12 @@ import java.util.List;
 public class Scheduler {
 
     @Autowired
-    private HttpClientExample client;
+    private WeatherService weatherService;
 
-    @Autowired
-    private CityRepo cityRepo;
-
-    @Autowired
-    private WeatherRepo weatherRepo;
-
-//    @Scheduled(cron = "*/3 * * * * *") // Формат:  секунда, минута, час, день, месяц, день недели
-//    public void reportCurrentData() {
-//        System.out.println("Scheduler working: " + new Date());
-//    }
 
 
     @Scheduled(cron = "0 0 */6 * * *") // Формат:  секунда, минута, час, день, месяц, день недели
     public void createWeather() throws Exception {
-        Iterable<City> list = cityRepo.findAll();
-        for (City city: list) {
-            Weather weather = new Weather();
-            weather.setDate(new Date());
-            weather.setCity(city);
-            weather.setTemp(client.sendGet(city.getLat(), city.getLon()));
-            weatherRepo.save(weather);
-
-            System.out.println("Scheduler save: " + weather.getCity().getName());
-            Thread.sleep(1000);
-        }
-//        System.out.println("Scheduler work: " + new Date());
+        weatherService.addWeather();
     }
 }

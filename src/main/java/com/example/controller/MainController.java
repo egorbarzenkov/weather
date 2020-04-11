@@ -40,7 +40,7 @@ public class MainController {
         City city;
         if (filter != null && !filter.isEmpty()) {
             city = cityRepo.findCityByName(filter);
-            if (user!=null){
+            if (user != null){
                 historyService.addHistory(city, user);
             }
         } else {

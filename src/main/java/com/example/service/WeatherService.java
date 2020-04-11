@@ -3,6 +3,7 @@ package com.example.service;
 import com.example.domain.City;
 import com.example.domain.Weather;
 import com.example.helper.HttpClientExample;
+import com.example.repos.CityRepo;
 import com.example.repos.WeatherRepo;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -14,7 +15,6 @@ import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
 import java.util.Date;
 
 @Service
@@ -23,8 +23,11 @@ public class WeatherService {
     @Autowired
     private WeatherRepo weatherRepo;
 
-//    @Autowired
-//    private HttpClientExample httpClientExample;
+    @Autowired
+    private HttpClientExample client;
+
+    @Autowired
+    private CityRepo cityRepo;
 
     public Weather getWeather(City city){
         if(city!=null){
@@ -33,13 +36,18 @@ public class WeatherService {
         }else {return null;}
     }
 
-//    public Date date(){
-//        Date dt = new Date();
-//        Calendar c = Calendar.getInstance();
-//        c.setTime(dt);
-//        c.add(Calendar.HOUR, 1);
-//        return c.getTime();
-//    }
+    public void addWeather() throws Exception{
+        Iterable<City> list = cityRepo.findAll();
+        for (City city: list) {
+            Weather weather = new Weather();
+            weather.setDate(new Date());
+            weather.setCity(city);
+            weather.setTemp(client.sendGet(city.getLat(), city.getLon()));
+            weatherRepo.save(weather);
 
+            System.out.println("save: " + weather.getCity().getName());
+            Thread.sleep(1000);
+        }
+    }
 
 }

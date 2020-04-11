@@ -11,7 +11,6 @@
 </div>
 
 <div class="card-columns">
-<#--    <#list messages as message>-->
     <#if weather??>
         <div class="card my-3">
             <div class="m-2">
@@ -20,14 +19,10 @@
             <div>
                 <i>${city.name}</i>
             </div>
-            <#--        <div class="card-footer text-muted">-->
-            <#--            ${message.authorName}-->
-            <#--        </div>-->
         </div>
     <#else>
         No weather
     </#if>
 
-<#--    </#list>-->
 </div>
 </@c.page>
