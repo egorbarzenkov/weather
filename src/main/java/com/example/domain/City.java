@@ -9,10 +9,9 @@ public class City {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-    private String region;
-    private String federal_district;
     private String lat;
     private String lon;
+    private String e_name;
 
     public City() {}
 
@@ -32,22 +31,6 @@ public class City {
         this.name = name;
     }
 
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    public String getFederal_district() {
-        return federal_district;
-    }
-
-    public void setFederal_district(String federal_district) {
-        this.federal_district = federal_district;
-    }
-
     public String getLat() {
         return lat;
     }
@@ -62,5 +45,13 @@ public class City {
 
     public void setLon(String lon) {
         this.lon = lon;
+    }
+
+    public String getE_name() {
+        return e_name;
+    }
+
+    public void setE_name(String e_name) {
+        this.e_name = e_name;
     }
 }

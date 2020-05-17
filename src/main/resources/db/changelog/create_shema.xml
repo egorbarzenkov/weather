@@ -51,7 +51,7 @@
         </insert>
     </changeSet>
     <changeSet id="5" author="egor.barzenkov">
-        <createTable tableName="city_test">
+        <createTable tableName="city">
             <column name="id" type="integer" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -62,21 +62,21 @@
         </createTable>
     </changeSet>
     <changeSet id="6" author="egor.barzenkov">
-        <insert tableName="city_test">
+        <insert tableName="city">
             <column name="id">1</column>
             <column name="name">Магнитогорск</column>
             <column name="lat">53.4186</column>
             <column name="lon">59.0472</column>
             <column name="e_name">Magnitogorsk</column>
         </insert>
-        <insert tableName="city_test">
+        <insert tableName="city">
             <column name="id">2</column>
             <column name="name">Екатеринбург</column>
             <column name="lat">56.8575</column>
             <column name="lon">60.6125</column>
             <column name="e_name">Yekaterinburg</column>
         </insert>
-        <insert tableName="city_test">
+        <insert tableName="city">
             <column name="id">3</column>
             <column name="name">Москва</column>
             <column name="lat">55.7522</column>
@@ -85,7 +85,7 @@
         </insert>
     </changeSet>
     <changeSet id="7" author="egor.barzenkov">
-        <createTable tableName="weather_test">
+        <createTable tableName="weather">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -94,20 +94,20 @@
             <column name="city_id" type="bigint">
                 <constraints nullable="false"
                              foreignKeyName="Fk_city_id"
-                             referencedTableName="city_test"
+                             referencedTableName="city"
                              referencedColumnNames="id"/>
             </column>
         </createTable>
     </changeSet>
     <changeSet id="8" author="egor.barzenkov">
-        <createTable tableName="history_test">
+        <createTable tableName="history">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="city_id" type="bigint">
                 <constraints nullable="false"
                              foreignKeyName="Fk_city_id"
-                             referencedTableName="city_test"
+                             referencedTableName="city"
                              referencedColumnNames="id"/>
             </column>
             <column name="user_id" type="bigint">

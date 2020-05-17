@@ -4,8 +4,5 @@ import com.example.domain.Weather;
 import org.springframework.data.repository.CrudRepository;
 
 public interface WeatherRepo extends CrudRepository<Weather, Long> {
-
-//    Weather findTopByOrderByDate();
-
     Weather findTopByCity_IdOrderByDateDesc(Long id);
 }

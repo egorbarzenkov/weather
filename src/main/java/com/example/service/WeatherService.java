@@ -42,7 +42,7 @@ public class WeatherService {
             Weather weather = new Weather();
             weather.setDate(new Date());
             weather.setCity(city);
-            weather.setTemp(client.sendGet(city.getLat(), city.getLon()));
+            weather.setTemp(client.sendGetMetric(city.getE_name()));
             weatherRepo.save(weather);
 
             System.out.println("save: " + weather.getCity().getName());
